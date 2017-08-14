@@ -1,0 +1,79 @@
+Requirement:
+Postal Calculator
+
+Business Rule 1: Accept width, height and optionally the length of a parcel.  Accept the shipping method - Ground, Air, Next Day.
+
+Business Rule 2: Once you have the minimum amount of information you need, produce a result on screen.  The result will be the volume of the package (width * height and optionally * length) multiplied by the "multiplier" for each shipping method.
+
+Ground: .15 multiplier
+Air: .25 multiplier
+Next Day: .45
+
+Non-Functional Requirement 1: You must name the project ChallengePostalCalculatorHelperMethods.
+
+Non-Functional Requirement 2: You must use methods.  Each method must do one thing and do it well.  
+I solved this problem like this 
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace ChallengPostalCalculatrHelperMethod
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+           
+            
+        }
+
+        protected void groundRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            resultLabel.Text = string.Format("Ground shipping fee:{0}", calculate(widthTextBox.Text, heightTextBox.Text, lengthTextBox.Text,  0.15)) ;
+            
+        }
+
+        protected void airRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            resultLabel.Text= string.Format("Air shipping fee:{0}", calculate(widthTextBox.Text, heightTextBox.Text, lengthTextBox.Text,  0.25));
+          
+        }
+
+        protected void nextDayRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            resultLabel.Text =string.Format("Next Day shipping fee:{0}", calculate(widthTextBox.Text, heightTextBox.Text, lengthTextBox.Text,  0.45));
+            
+                
+        }
+        private double calculate(string WidthTextbox, string HeigthTextbox, string LengthTextbox, double addMulti, int length = 0)
+        {
+
+            if (lengthTextBox.Text.Trim().Length == 0)
+            {
+
+                int width = int.Parse(WidthTextbox);
+                int height = int.Parse(HeigthTextbox);
+                double mutiplier = width * height;
+                mutiplier *= addMulti;
+                return mutiplier;
+
+            }
+            else
+            {
+                int width = int.Parse(WidthTextbox);
+                int height = int.Parse(HeigthTextbox);
+                length += int.Parse(LengthTextbox);
+                double mutiplier = width * height * length;
+                mutiplier *= addMulti;
+                return mutiplier;
+
+            }
+
+
+        }
